@@ -1,17 +1,46 @@
-import { getForecast, createWeatherIcon } from './weather.service.js';
-import { getGeolocation } from './map.service.js';
+import {
+  getForecast as getForecast,
+  createWeatherIcon,
+} from './weather.services.js';
+import { getGeolocation, reverseLocation } from './map.services.js';
 
-main();
+const APP = {
+  init: () => {
+    document
+      .getElementById('getWeather')
+      .addEventListener('click', APP.searchLocation);
+    document
+      .getElementById('useLocation')
+      .addEventListener('click', APP.getLocation);
+  },
+  searchLocation: async function (ev) {
+    ev.preventDefault();
+    let query = document.getElementById('city').value.trim();
+    if (!query) return false;
+    getGeolocation(query);
+  },
+  getLocation: async function (ev) {
+    let options = {
+      enableHighAccuracy: true,
+      timeout: 1000 * 10, //10 seconds
+      maximumAge: 1000 * 60 * 5, //5 minutes
+    };
+    navigator.geolocation.getCurrentPosition(APP.ftw, APP.wtf, options);
+  },
+  ftw: async function (position) {
+    await reverseLocation(
+      position.coords.latitude.toFixed(2),
+      position.coords.longitude.toFixed(2)
+    );
+    getForecast('metric', {
+      lon: position.coords.longitude.toFixed(2),
+      lat: position.coords.latitude.toFixed(2),
+    });
+  },
+  wtf: (err) => {
+    //geolocation failed
+    console.error(err);
+  },
+};
 
-// This is a demo of how to use the two API services.
-// You should replace this with your own application logic.
-async function main() {
-  const location = 'Algonquin College, Nepean, ON, CA';
-  try {
-    const coord = await getGeolocation(location);
-    const forecast = await getForecast({ coord });
-    console.log(forecast);
-  } catch (error) {
-    console.log(error.message);
-  }
-}
+APP.init();
