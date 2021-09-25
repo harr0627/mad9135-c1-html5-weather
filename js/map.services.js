@@ -10,8 +10,6 @@ export async function getGeolocation(location) {
     throw new Error(response.statusText);
   }
   const data = await response.json();
-  console.log(data[0]);
-  // i want to save the data for [0] to local storage
   return { lat: data[0].lat, lon: data[0].lon };
 }
 
@@ -25,6 +23,7 @@ export async function reverseLocation(lat, lon) {
     })
     .then((data) => {
       console.log(data);
+      return data;
     })
     .catch((err) => {
       console.error(err);

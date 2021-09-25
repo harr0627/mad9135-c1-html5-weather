@@ -4,19 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather | C1</title>
-  </head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
   <body>
     <div id="root">
     <header>
     <h1>Weather</h1>
     </header>
     <main>
-      <input id="city" type="text" placeholder="city">
-      <button id='getWeather'>Get Weather</button>
-      <button id='useLocation'>Use my location</button>
-    <div class="card-container">
-    
-    </div>
+      <div>
+        <input id="city" type="text" placeholder="city">
+        <button id='getWeather'>Get Weather</button>
+        <button id='useLocation'>Use my location</button>
+        <div class="card-container">
+        <h2 class="location">Location</h2>
+      </div>
+      <div class="mainCard"> </div>
+      <div class="card" style="width: 18rem;"></div>
+      </div>
+      </div>
     </main>
     </div>
     <script src="js/index.js" type="module"></script>
