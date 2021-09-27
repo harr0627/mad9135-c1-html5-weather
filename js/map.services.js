@@ -23,7 +23,7 @@ export async function reverseLocation(lat, lon) {
     })
     .then((data) => {
       console.log(data);
-      return data;
+      return { data };
     })
     .catch((err) => {
       console.error(err);

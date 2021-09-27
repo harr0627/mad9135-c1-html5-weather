@@ -1,6 +1,26 @@
 html{
 
 }
-.card{
-    display: inline-block
+body{
+    width:90vw;
+    margin:5vw;
+}
+header{
+    align-content: center;
+}
+h1{
+    text-align: center;
+}
+.location{
+    text-align: center;
+}
+#city{
+    margin-left: 0 auto;
+    margin-right: 0 auto ;
+}
+.page{
+    display:none
+}
+.active{
+    display: block;
 }
