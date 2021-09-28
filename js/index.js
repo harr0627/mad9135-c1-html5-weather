@@ -3,6 +3,7 @@ import {
   createWeatherIcon,
 } from './weather.services.js';
 import { getGeolocation, reverseLocation } from './map.services.js';
+import { locationStorage, forecastStorage } from './localStorage.js';
 
 const APP = {
   init: () => {
@@ -21,11 +22,13 @@ const APP = {
     let query = document.getElementById('city').value.trim();
     if (!query) return false;
     let coord = await getGeolocation(query);
-    // let location = await reverseLocation({ coord });
-    // console.log(location);
+    await locationStorage({ coord });
+    let reverse = await reverseLocation(coord.lat, coord.lon);
+    let location = document.querySelector('.location');
+    location.innerHTML = `${reverse.data.address.city}, ${reverse.data.address.state} ${reverse.data.address.country}`;
     let forecast = await getForecast({ coord });
     await APP.showForecast({ forecast });
-    //localStorage.setItem(forecast)
+    await forecastStorage({ forecast });
     console.log(forecast);
   },
   getLocation: async function (ev) {
@@ -41,10 +44,12 @@ const APP = {
       position.coords.latitude.toFixed(2),
       position.coords.longitude.toFixed(2)
     );
-    console.log(reverse);
-    // let location = document.querySelector('location');
-    // location.innerHTML = `${reverse.address}`;
+    console.log({ reverse });
+    let location = document.querySelector('.location');
+    location.innerHTML = `${reverse.data.address.city}, ${reverse.data.address.state} ${reverse.data.address.country}`;
+    await locationStorage({ reverse });
     let forecast = await getForecast('metric', { reverse });
+    await forecastStorage({ forecast });
     await APP.showForecast({ forecast });
     console.log(forecast);
   },
@@ -53,15 +58,10 @@ const APP = {
     console.error(err);
   },
   showForecast: async function (data) {
-    // let day = data.forecast.daily[0];
-
     let mainCard = document.querySelector('.mainCard');
     let cards = document.querySelector('.cards');
     let hourly = document.querySelector('#hourly');
     let weekly = document.querySelector('#weekly');
-
-    //locationl.innerHTML = data.
-
     mainCard.innerHTML = data.forecast.daily
       .map((day, idx) => {
         if (idx == 0) {

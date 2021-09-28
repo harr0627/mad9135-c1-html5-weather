@@ -14,9 +14,9 @@ export async function getGeolocation(location) {
 }
 
 export async function reverseLocation(lat, lon) {
-  // //build url
+  //build URL
   let url = `${REVERSE_URL}key=${API_TOKEN}&lat=${lat}&lon=${lon}`;
-  fetch(url)
+  let location = fetch(url)
     .then((resp) => {
       if (!resp.ok) throw new Error(resp.statusText);
       return resp.json();
@@ -28,4 +28,5 @@ export async function reverseLocation(lat, lon) {
     .catch((err) => {
       console.error(err);
     });
+  return location;
 }
