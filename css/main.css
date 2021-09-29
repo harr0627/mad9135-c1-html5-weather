@@ -1,25 +1,29 @@
-html{
-
-}
 body{
-    width:90vw;
-    margin:5vw;
+    margin:0;
 }
 header{
+    padding: 2rem;
     align-content: center;
 }
 h1{
     text-align: center;
 }
 .location{
+    padding: 2rem 0;
     text-align: center;
+}
+main{
+    padding: 2rem;
 }
 #city{
     margin-left: 0 auto;
     margin-right: 0 auto ;
 }
 .page{
-    display:none
+    display:none;
+    align-items:center;
+    justify-items: center;
+    width:1005;
 }
 .active{
     display: block;

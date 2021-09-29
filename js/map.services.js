@@ -14,19 +14,12 @@ export async function getGeolocation(location) {
 }
 
 export async function reverseLocation(lat, lon) {
-  //build URL
   let url = `${REVERSE_URL}key=${API_TOKEN}&lat=${lat}&lon=${lon}`;
-  let location = fetch(url)
-    .then((resp) => {
-      if (!resp.ok) throw new Error(resp.statusText);
-      return resp.json();
-    })
-    .then((data) => {
-      console.log(data);
-      return { data };
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-  return location;
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  const data = await response.json();
+  return data;
 }

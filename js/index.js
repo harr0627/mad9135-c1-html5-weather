@@ -1,7 +1,4 @@
-import {
-  getForecast as getForecast,
-  createWeatherIcon,
-} from './weather.services.js';
+import { getForecast, createWeatherIcon } from './weather.services.js';
 import { getGeolocation, reverseLocation } from './map.services.js';
 import { locationStorage, forecastStorage } from './localStorage.js';
 
@@ -22,10 +19,10 @@ const APP = {
     let query = document.getElementById('city').value.trim();
     if (!query) return false;
     let coord = await getGeolocation(query);
-    await locationStorage({ coord });
+    // await locationStorage({ coord });
     let reverse = await reverseLocation(coord.lat, coord.lon);
     let location = document.querySelector('.location');
-    location.innerHTML = `${reverse.data.address.city}, ${reverse.data.address.state} ${reverse.data.address.country}`;
+    location.innerHTML = `${reverse.address.city}, ${reverse.address.state} ${reverse.address.country}`;
     let forecast = await getForecast({ coord });
     await APP.showForecast({ forecast });
     await forecastStorage({ forecast });
@@ -46,7 +43,7 @@ const APP = {
     );
     console.log({ reverse });
     let location = document.querySelector('.location');
-    location.innerHTML = `${reverse.data.address.city}, ${reverse.data.address.state} ${reverse.data.address.country}`;
+    location.innerHTML = `${reverse.address.city}, ${reverse.address.state} ${reverse.address.country}`;
     await locationStorage({ reverse });
     let forecast = await getForecast('metric', { reverse });
     await forecastStorage({ forecast });
@@ -66,12 +63,13 @@ const APP = {
       .map((day, idx) => {
         if (idx == 0) {
           let dt = new Date(day.dt * 1000); //timestamp * 1000
+          let imageId = day.weather[0].icon;
+          let image = createWeatherIcon(imageId);
+
           return `<div class="card" style="width: 99%">
           <div class="row no-gutters">
               <div class="col center" >
-                  <img class="align-middle" src="http://openweathermap.org/img/wn/${
-                    day.weather[0].icon
-                  }@4x.png" class="img-fluid" alt="${
+                  <img class="align-middle" src="${image}@4x.png" class="img-fluid" alt="${
             day.weather[0].description
           }">
               </div>
@@ -97,13 +95,13 @@ const APP = {
       .map((day, idx) => {
         if (idx > 0 && idx <= 2) {
           let dt = new Date(day.dt * 1000); //timestamp * 1000
-          return `<div class="col" style="display:inline-block; width:49%; margin:0;">
-          <div class="card" style="width:100%;">
+          let imageId = day.weather[0].icon;
+          let image = createWeatherIcon(imageId);
+          return `<div class="col-lg-2" style="display:inline-block; width:49%; margin:0;">
+          <div class="card" >
           <div class="row no-gutters">
               <div class="col center" >
-                  <img class="align-middle" src="http://openweathermap.org/img/wn/${
-                    day.weather[0].icon
-                  }@4x.png" class="img-fluid" alt="${
+                  <img class="align-middle" src="${image}@4x.png" class="img-fluid" alt="${
             day.weather[0].description
           }">
               </div>
@@ -128,19 +126,24 @@ const APP = {
       .map((hour, idx) => {
         if (idx <= 5) {
           let dt = new Date(hour.dt * 1000); //timestamp * 1000
-          return `<div class="col" style="display:inline-block; width:100%; margin:0;">
+          let imageId = hour.weather[0].icon;
+          let image = createWeatherIcon(imageId);
+          return `<div class="col-lg-2" style="display:inline-block;  margin:0;">
         <div class="card" style="width:100%;">
         <div class="row no-gutters">
             <div class="col center" >
-                <img class="align-middle" src="http://openweathermap.org/img/wn/${
-                  hour.weather[0].icon
-                }@2x.png" class="img-fluid" alt="${
+                <img class="align-middle" src="${image}@2x.png" class="img-fluid" alt="${
             hour.weather[0].description
           }">
             </div>
             <div class="col">
                 <div class="card-block px-2">
-                    <h4 class="card-title center">${dt.toLocaleTimeString()}</h4>
+                    <h4 class="card-title center">${dt.toLocaleTimeString(
+                      navigator.language,
+                      {
+                        hour: 'numeric',
+                      }
+                    )}</h4>
                     <p class="card-text">Currently ${hour.temp}&deg;C </p>
                     <p class="card-text">Feels like ${
                       hour.feels_like
@@ -159,13 +162,15 @@ const APP = {
       .map((day, idx) => {
         if (idx <= 5) {
           let dt = new Date(day.dt * 1000); //timestamp * 1000
+          let imageId = day.weather[0].icon;
+          let image = createWeatherIcon(imageId);
           return `<div class="col" style="display:inline-block; width:100%; margin:0;">
         <div class="card" style="width:100%;">
         <div class="row no-gutters">
             <div class="col center" >
-                <img class="align-middle" src="http://openweathermap.org/img/wn/${
-                  day.weather[0].icon
-                }@2x.png" class="img-fluid" alt="${day.weather[0].description}">
+                <img class="align-middle" src="${image}@2x.png" class="img-fluid" alt="${
+            day.weather[0].description
+          }">
             </div>
             <div class="col">
                 <div class="card-block px-2">

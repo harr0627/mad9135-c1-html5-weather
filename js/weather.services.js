@@ -61,11 +61,6 @@ async function fetchForecast({ coord: { lat, lon }, units }) {
  * @param {string} iconCode
  */
 export function createWeatherIcon(iconCode) {
-  let img = document.createElement('img');
-  img.setAttribute(
-    'src',
-    'https://openweathermap.org/img/w/' + iconCode + '.png'
-  );
-  img.setAttribute('alt', '');
+  let img = `http://openweathermap.org/img/wn/${iconCode}`;
   return img;
 }
