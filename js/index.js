@@ -30,7 +30,7 @@ const APP = {
     let forecast = await getForecast({ coord });
     await APP.showForecast({ forecast });
     await forecastStorage({ forecast });
-    setInterval(forecast, 1800000); //every 30mins
+    // setInterval(forecast, 1800000); //every 30mins
   },
   getLocation: async function (ev) {
     let options = {
@@ -52,8 +52,8 @@ const APP = {
     let forecast = await getForecast('metric', { reverse });
     await forecastStorage({ forecast });
     await APP.showForecast({ forecast });
-    setInterval(reverse, 1800000);
-    setInterval(forecast, 1800000);
+    // setInterval(reverse, 1800000);
+    // setInterval(forecast, 1800000);
   },
   wtf: (err) => {
     //location failed
