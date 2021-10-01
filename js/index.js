@@ -10,9 +10,6 @@ const APP = {
     document
       .getElementById('useLocation')
       .addEventListener('click', APP.getLocation);
-    document
-      .getElementById('useLocation')
-      .addEventListener('click', APP.getLocation);
     document.querySelectorAll('.nav-link').forEach((link) => {
       link.addEventListener('click', APP.weatherNav);
     });
@@ -29,10 +26,11 @@ const APP = {
     location.innerHTML = `${reverse.address.city}, ${reverse.address.state} ${reverse.address.country}`;
     let forecast = await getForecast({ coord });
     await APP.showForecast({ forecast });
+    await locationStorage({ reverse });
     await forecastStorage({ forecast });
-    // setInterval(forecast, 1800000); //every 30mins
   },
   getLocation: async function (ev) {
+    ev.preventDefault();
     let options = {
       enableHighAccuracy: true,
       timeout: 1000 * 10, //10 seconds
@@ -48,12 +46,10 @@ const APP = {
     );
     let location = document.querySelector('.location');
     location.innerHTML = `${reverse.address.city}, ${reverse.address.state} ${reverse.address.country}`;
-    await locationStorage({ reverse });
     let forecast = await getForecast('metric', { reverse });
-    await forecastStorage({ forecast });
     await APP.showForecast({ forecast });
-    // setInterval(reverse, 1800000);
-    // setInterval(forecast, 1800000);
+    await locationStorage({ reverse });
+    await forecastStorage({ forecast });
   },
   wtf: (err) => {
     //location failed
@@ -97,10 +93,9 @@ const APP = {
                       <p class="card-text">UV Index: ${parseInt(
                         current.uvi
                       )}&deg;C </p>
-                  </div>
-              </div>
-          </div>
-    </div>`;
+                    </div>
+                </div>
+            </div>`;
     cards.innerHTML = data.forecast.daily
       .map((day, idx) => {
         if (idx > 0 && idx <= 2) {
@@ -175,9 +170,9 @@ const APP = {
                       <p class="card-text">Humidity ${parseInt(
                         hour.humidity
                       )}%</p>
-                </div>
-      </div>
-  </div>`;
+                  </div>
+              </div>
+            </div>`;
         }
       })
       .join(' ');
@@ -211,9 +206,9 @@ const APP = {
                       <p class="card-text">Precipitation ${parseInt(
                         day.pop * 100
                       )}%</p>
-        </div>
-      </div>
-  </div>`;
+                  </div>
+              </div>
+            </div>`;
         }
       })
       .join(' ');
