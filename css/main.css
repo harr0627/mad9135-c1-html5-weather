@@ -1,5 +1,12 @@
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
 body{
     margin:0;
+    background-color:rgb(203, 216, 238) 
 }
 header{
     padding: 2rem;
@@ -9,22 +16,132 @@ h1{
     text-align: center;
 }
 .location{
-    padding: 2rem 0;
+    padding: 1rem 0;
     text-align: center;
 }
 main{
-    padding: 2rem;
+    padding: 0 1rem;
 }
-#city{
+ #city{
     margin-left: 0 auto;
     margin-right: 0 auto ;
 }
+
 .page{
     display:none;
     align-items:center;
     justify-items: center;
-    width:1005;
 }
 .active{
     display: block;
+    width:100%;
+}
+ .main{
+    text-align: center;
+    font-size: 1.5rem;
+}
+.card-image{
+    margin: 0 auto;
+}
+.card-title{
+    text-align: center;
+}
+.current{
+    text-align: center;
+    font-size: 1.5rem;
+}
+.main-card .card-title{
+    font-size: 1.75rem;
+}
+.main-card p{
+    text-align: center;
+}
+.cards{
+    display: flex;
+    width: 100%;
+}
+.second-cards{
+    display:flex;
+    width:50%;
+    padding: 1rem;
+    text-align: center;
+}
+.small-cards{
+    text-align: center;
+}
+
+@media all and (min-width:450px){
+    .location{
+        padding: 2rem 0;
+        text-align: center;
+    }
+    main{
+        padding: 0 5rem;
+    }
+    #city{
+        margin-left: 0 auto;
+        margin-right: 0 auto ;
+    }
+    .page{
+        display:none;
+        align-items:center;
+        justify-items: center;
+    }
+    .active{
+        display: block;
+    }
+     .main{
+        text-align: center;
+        font-size: 3rem;
+    }
+    .card{
+        padding: 2rem;
+    }
+    .current{
+
+        font-size: 2rem;
+    }
+    .main-card .card-title{
+        font-size: 1.75rem;
+    }
+    .main-card p{
+        text-align: center;
+    }
+    .second-cards{
+        padding: 2rem
+    }
+  
+}
+@media all and (min-width:950px){
+    main{
+        padding: 0 2rem;
+    }
+    main .today{
+        padding: 4rem;
+    }
+   
+    .card{
+        padding: 2rem;
+    }
+  
+    .hourly, .weekly{
+        padding: 0;
+        display: flex;
+        width: 100%;
+       }
+    .sm-cards{
+        padding: 0;
+        width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+       }
+       .weekly .card-title{
+        font-size: 1rem;
+       }
+
+}
+@media all and (min-width:1200px){
+main .today{
+    padding: 0 10rem;
+}
 }
