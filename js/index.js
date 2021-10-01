@@ -30,6 +30,7 @@ const APP = {
     let forecast = await getForecast({ coord });
     await APP.showForecast({ forecast });
     await forecastStorage({ forecast });
+    setInterval(forecast, 1800000); //every 30mins
   },
   getLocation: async function (ev) {
     let options = {
@@ -51,6 +52,8 @@ const APP = {
     let forecast = await getForecast('metric', { reverse });
     await forecastStorage({ forecast });
     await APP.showForecast({ forecast });
+    setInterval(reverse, 1800000);
+    setInterval(forecast, 1800000);
   },
   wtf: (err) => {
     //location failed
@@ -63,7 +66,6 @@ const APP = {
     let weekly = document.querySelector('.weekly');
     let tzn = data.forecast.timezone;
     let current = data.forecast.current;
-    console.log(current);
     let dt = new Date(current.dt * 1000);
     let imageId = current.weather[0].icon;
     let image = createWeatherIcon(imageId);

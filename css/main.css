@@ -76,7 +76,7 @@ main{
         text-align: center;
     }
     main{
-        padding: 0 5rem;
+        padding: 0 5rem 2rem;
     }
     #city{
         margin-left: 0 auto;
@@ -142,6 +142,6 @@ main{
 }
 @media all and (min-width:1200px){
 main .today{
-    padding: 0 10rem;
+    padding: 5 10rem;
 }
 }
