@@ -17,6 +17,7 @@ const APP = {
   },
   searchLocation: async function (ev) {
     ev.preventDefault();
+    // clearInterval();
     let query = document.getElementById('city').value.trim();
     let location = document.querySelector('.location');
 
@@ -28,6 +29,9 @@ const APP = {
     await APP.showForecast({ forecast });
     await locationStorage({ reverse });
     await forecastStorage({ forecast });
+    setInterval(function () {
+      return APP.showForecast({ forecast });
+    }, 60 * 1000);
   },
   getLocation: async function (ev) {
     ev.preventDefault();
