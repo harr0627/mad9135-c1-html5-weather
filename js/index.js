@@ -17,7 +17,6 @@ const APP = {
   },
   searchLocation: async function (ev) {
     ev.preventDefault();
-    // clearInterval();
     let query = document.getElementById('city').value.trim();
     let location = document.querySelector('.location');
 
