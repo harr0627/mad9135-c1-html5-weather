@@ -1,4 +1,4 @@
-const API_TOKEN = 'pk.480aa31da4bde959e8c975cd4005bd9a';
+const API_TOKEN = 'pk.814b82c1d615f40a7c8a61b04c17b76f';
 const BASE_URL = 'https://us1.locationiq.com/v1';
 const REVERSE_URL = 'https://us1.locationiq.com/v1/reverse.php?format=json&';
 
